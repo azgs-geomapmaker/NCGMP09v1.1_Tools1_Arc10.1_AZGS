@@ -363,7 +363,12 @@ def checkContent():
 	duplicateIDs.append('  Duplicate _ID values')
 	for n in range(1,len(all_IDs)):
 		if all_IDs[n-1][0] == all_IDs[n][0]:
-			duplicateIDs.append('    '+all_IDs[n][0]+', tables '+all_IDs[n-1][1]+' '+all_IDs[n][1])
+                        if  not all_IDs[n][0] is None and not all_IDs[n-1][1] is None and not all_IDs[n][1] is None:
+                                duplicateIDs.append('    '+all_IDs[n][0]+', tables '+all_IDs[n-1][1]+' '+all_IDs[n][1])
+                        else:
+                                duplicateIDs.append('    BOGUS! got a NoneType ID or table')
+
+
 	# Check for OwnerIDs and ValueLinkIDs in ExtendedAttributes that don't match an existing _ID
 	if not loadTableValues('ExtendedAttributes','OwnerID',extendedAttribIDs):
 		unreferencedIds.append('    Error: did not find field OwnerID in table ExtendedAttributes')
